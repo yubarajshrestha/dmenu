@@ -1,0 +1,30 @@
+{
+    "name": "yubarajshrestha/dmenu",
+    "type": "library",
+    "homepage": "https://demnu.yubarajshrestha.com.np/",
+    "description": "Super dynamic menu generator.",
+    "keywords": ["laravel", "dmenu", "laravel-module"],
+    "authors": [
+        {
+            "name": "Yubaraj Shrestha",
+            "email": "companion.krish@outlook.com",
+            "homepage": "https://yubarajshrestha.com.np/"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "YubarajShrestha\\DMenu\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "YubarajShrestha\\DMenu\\DMenuServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}
