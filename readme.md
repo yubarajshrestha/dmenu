@@ -9,4 +9,4 @@
 
 > Dynamic menu has been one of the most used module in every project. With few initial setup configurations you'll be able to use dynamic menu builder.
 
-[Read complete docs:](https://yubarajshrestha.github.io/dmenu/)
+[Read complete docs](https://yubarajshrestha.github.io/dmenu/)
