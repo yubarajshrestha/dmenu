@@ -4,8 +4,10 @@ namespace YubarajShrestha\DMenu\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use YubarajShrestha\DMenu\DMenu;
+use YubarajShrestha\DMenu\MenuItems;
 
 class DMenuController extends Controller
 {
@@ -22,7 +24,17 @@ class DMenuController extends Controller
 
     public function fetch($model) {
         $model = urldecode($model);
-        return $model::paginate(2);
+        $m = new $model;
+        $paginator = $m->getMenuItems();
+        $data = collect($paginator->items())->map(function ($dMenu) {
+            return $dMenu->dMenu();
+        });
+        return response()->json([
+            'data' => $data,
+            'current' => $paginator->currentPage(),
+            'next' => $paginator->nextPageUrl(),
+            'prev' => $paginator->previousPageUrl()
+        ]);
     }
 
     public function store() {
@@ -36,5 +48,4 @@ class DMenuController extends Controller
     public function delete() {
     	//
     }
-
 }

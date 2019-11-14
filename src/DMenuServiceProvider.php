@@ -4,6 +4,7 @@ namespace YubarajShrestha\DMenu;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 
 class DMenuServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,14 @@ class DMenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        Blade::component('dmenu.components.pages', 'tPages');
+        Blade::component('dmenu.components.dynamic', 'tDynamic');
+        Blade::component('dmenu.components.static', 'tStatic');
+        Blade::component('dmenu.components.menu', 'tMenu');
+        Blade::component('dmenu.components.styles', 'tStyles');
+        Blade::component('dmenu.components.scripts', 'tScripts');
+
         $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         // $this->loadViewsFrom(__DIR__.'/views', 'dmenu');x
@@ -37,6 +46,11 @@ class DMenuServiceProvider extends ServiceProvider
             __DIR__.'/views' => resource_path('views/dmenu'),
 			__DIR__ . '/config/config.php' => base_path('config/dmenu.php')
 		], 'dmenu');
+
+        $dm = config('dmenu.route-name');
+        if($dm) {
+            View::share('dmRoute', $dm);
+        }
     }
 
 }

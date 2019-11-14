@@ -39,10 +39,10 @@ class DMenu
     protected function resolveItems($resolver): Collection
     {
         $resolver = Arr::wrap($resolver);
-        $items = app()->call(
+        $paginator = app()->call(
             array_shift($resolver), $resolver
         );
-        return collect($items)->map(function ($dMenu) {
+        return collect($paginator->items())->map(function ($dMenu) {
             return $this->castToFeedItem($dMenu);
         });
     }
