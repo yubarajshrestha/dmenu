@@ -24,6 +24,9 @@ class DMenu
     /** @var string */
     public $model;
 
+    /** @var integer */
+    public $perPage;
+
     /** @var \Illuminate\Support\Collection */
     public $items;
 
@@ -33,6 +36,7 @@ class DMenu
         $this->title = $resolver['name'];
         $this->url = $resolver['url'];
         $this->model = urlencode($resolver['model']);
+        $this->perPage = (int) $resolver['display-items'];
         $this->items = $this->resolveItems($resolver['model'] . '@getMenuItems');
     }
 
@@ -40,7 +44,7 @@ class DMenu
     {
         $resolver = Arr::wrap($resolver);
         $paginator = app()->call(
-            array_shift($resolver), $resolver
+            array_shift($resolver), [$this->perPage]
         );
         return collect($paginator->items())->map(function ($dMenu) {
             return $this->castToFeedItem($dMenu);
@@ -52,9 +56,11 @@ class DMenu
         if (is_array($dMenu)) {
             $dMenu = new MenuItems($dMenu);
         }
+
         if ($dMenu instanceof MenuItems) {
             $dMenu->validate();
         }
+
         if (! $dMenu instanceof DMenuInterface) {
             throw DMenuException::notFeedable($dMenu);
         }
@@ -64,7 +70,9 @@ class DMenu
         if (! $menuItem instanceof MenuItems) {
             throw DMenuException::notAFeedItem($menuItem);
         }
+
         $menuItem->validate();
+        
         return $menuItem;
     }
 

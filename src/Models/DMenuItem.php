@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class DMenuItem extends Model
 {
     protected $table = 'dmenu_items';
-    protected $fillable = ['menu_id', 'name', 'value', 'type', 'model', 'parameters', 'target', 'parent_id', 'order', 'enabled'];
+    protected $fillable = ['menu_id', 'name', 'model', 'link', 'parameters', 'target', 'parent_id', 'order', 'enabled'];
 
     protected $with = ['children'];
 

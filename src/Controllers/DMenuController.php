@@ -22,10 +22,10 @@ class DMenuController extends Controller
         return view('dmenu.index', compact('menus'));
     }
 
-    public function fetch($model) {
+    public function fetch(Request $request, $model) {
         $model = urldecode($model);
         $m = new $model;
-        $paginator = $m->getMenuItems();
+        $paginator = $m->getMenuItems($request->get('per-page'));
         $data = collect($paginator->items())->map(function ($dMenu) {
             return $dMenu->dMenu();
         });

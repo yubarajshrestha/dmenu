@@ -3,9 +3,8 @@ namespace YubarajShrestha\DMenu\Interfaces;
 
 interface DMenuInterface
 {
-
 	/**  */
-	public function getMenuItems();
+	public function getMenuItems($items);
 	
     /**
      * @return array|\YubarajShrestha\DMenu\DMenuInterface

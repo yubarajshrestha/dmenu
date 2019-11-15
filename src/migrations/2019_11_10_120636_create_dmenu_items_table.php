@@ -19,8 +19,7 @@ class CreateDmenuItemsTable extends Migration
             $table->foreign('dmenu_id')->references('id')->on('dmenus')->onDelete('cascade');
             $table->string('name');
             $table->string('model')->nullable();
-            $table->string('type')->nullable();
-            $table->string('value')->nullable();
+            $table->string('link')->nullable();
             $table->string('target')->default('_self');
             $table->json('parameters')->nullable();
             $table->integer('parent_id')->nullable();
