@@ -8,17 +8,20 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use YubarajShrestha\DMenu\DMenu;
 use YubarajShrestha\DMenu\MenuItems;
+use Illuminate\Support\Facades\Validator;
+use YubarajShrestha\DMenu\Models\DMenu as Menu;
 
 class DMenuController extends Controller
 {
 
     public function index() {
-        $dmenu = config('dmenu.routes');
-        $menus = [];
-        foreach($dmenu as $menu) {
-            $item = new DMenu($menu);
-            array_push($menus, $item);
-        }
+        // $dmenu = config('dmenu.routes');
+        // $menus = [];
+        // foreach($dmenu as $menu) {
+        //     $item = new DMenu($menu);
+        //     array_push($menus, $item);
+        // }
+        $menus = Menu::latest()->get();
         return view('dmenu.index', compact('menus'));
     }
 
@@ -37,8 +40,30 @@ class DMenuController extends Controller
         ]);
     }
 
-    public function store() {
-    	//
+    public function store(Request $request) {
+    	$validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('dmenu.index')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $data = $request->only(['name', 'description', 'enabled']);
+        if(!isset($data['enabled'])) {
+            $data['enabled'] = 0;
+        } else {
+            $data['enabled'] = (int) $data['enabled'];
+        }
+
+        try {
+            //
+        } catch(Exception $e) {
+            //
+        }
+        return redirect()->route('dmenu.index')->with('success', 'Menu successfully created.');
     }
 
     public function update() {

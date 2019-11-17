@@ -34,8 +34,11 @@ class DMenuServiceProvider extends ServiceProvider
         Blade::component('dmenu.components.dynamic', 'tDynamic');
         Blade::component('dmenu.components.static', 'tStatic');
         Blade::component('dmenu.components.menu', 'tMenu');
+        Blade::component('dmenu.components.form', 'tMenuForm');
+        Blade::component('dmenu.components.menu-item', 'tMenuItem');
         Blade::component('dmenu.components.styles', 'tStyles');
         Blade::component('dmenu.components.scripts', 'tScripts');
+        Blade::component('dmenu.components.save', 'tSubmit');
 
         $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
