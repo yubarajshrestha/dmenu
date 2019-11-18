@@ -58,8 +58,10 @@ class DMenuController extends Controller
             $data['enabled'] = (int) $data['enabled'];
         }
 
+        $data['slug'] = Str::slug($request->name);
+
         try {
-            //
+            Menu::create($data);
         } catch(Exception $e) {
             //
         }

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 */
 class DMenu extends Model
 {
+
     protected $table = 'dmenus';
-    protected $fillable = ['name', 'slug'];
+
+    protected $fillable = ['name', 'slug', 'description', 'enabled'];
+
 }
